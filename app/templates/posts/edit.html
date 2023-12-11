@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Update Post</h2>
+  <form method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.title.label(class="form-control-label") }}
+      {{ form.title(class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ form.category_id.label(class="form-control-label") }}
+      {{ form.category_id(class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ form.description.label(class="form-control-label") }}
+      {{ form.description(class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ form.image.label(class="form-control-label") }}
+      {{ form.image(class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ form.is_published.label(class="form-check-label") }}
+      {{ form.is_published(class="form-check-input") }}
+    </div>
+    <button type="submit" class="btn btn-primary">Update Post</button>
+  </form>
+{% endblock %}

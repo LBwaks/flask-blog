@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% block title %}Blogs {% endblock %}
+{% block content %}
+
+
+
+    <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Blogs</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li>Blogs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Start Blog Singel Area -->
+    <section class="section blog-grid-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-12">
+                    <div class="row">
+                        {% for post in posts %}
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <!-- Start Single Blog Grid -->
+                            <div class="single-blog-grid">
+                                <div class="blog-img">
+                                    <a href="blog-single.html">
+                                        <img src="{{post.image}}" alt="#">
+                                    </a>
+                                </div>
+                                <div class="blog-content">
+                                    <a class="category" href="javascript:void(0)">{{post.category.title}}</a>
+                                    <h4>
+                                        <a href="{{url_for('posts.post_details', post_id=post.id)}}">{{post.title}}.</a>
+                                    </h4>
+                                    <p>{{post.description}}</p>
+                                    
+                                </div>
+                            </div>
+                            <!-- End Single Blog Grid -->
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Pagination -->
+                    <div class="pagination left">
+                        <ul class="pagination-list">
+                            <li><a href="javascript:void(0)">Prev</a></li>
+                            <li class="active"><a href="javascript:void(0)">2</a></li>
+                            <li><a href="javascript:void(0)">3</a></li>
+                            <li><a href="javascript:void(0)">4</a></li>
+                            <li><a href="javascript:void(0)">Next</a></li>
+                        </ul>
+                    </div>
+                    <!--/ End Pagination -->
+                </div>
+                <aside class="col-lg-4 col-md-12 col-12">
+                    <div class="sidebar">
+                        <!-- Start Single Widget -->
+                        <div class="widget search-widget">
+                            <h5 class="widget-title">Search This Site</h5>
+                            <form action="#">
+                                <input type="text" placeholder="Search ...">
+                                <button type="submit"><i class="lni lni-search-alt"></i></button>
+                            </form>
+                        </div>
+                        <!-- End Single Widget -->
+                        <!-- Start Single Widget -->
+                        <div class="widget popular-feeds">
+                            <h5 class="widget-title">Popular Feeds</h5>
+                            <div class="popular-feed-loop">
+                                <div class="single-popular-feed">
+                                    <div class="feed-desc">
+                                        <a href="javascript:void(0)" class="cetagory">Creative</a>
+                                        <h6 class="post-title"><a href="blog-single.html">Bringing Great Design
+                                                Ideas To Completion</a></h6>
+                                        <span class="time"><i class="lni lni-calendar"></i> 05th Nov 2023</span>
+                                    </div>
+                                </div>
+                                <div class="single-popular-feed">
+                                    <div class="feed-desc">
+                                        <a href="javascript:void(0)" class="cetagory">Jobs</a>
+                                        <h6 class="post-title"><a href="blog-single.html">Live Life Smart And
+                                                Focus On The Positive</a></h6>
+                                        <span class="time"><i class="lni lni-calendar"></i> 24th March 2023</span>
+                                    </div>
+                                </div>
+                                <div class="single-popular-feed">
+                                    <div class="feed-desc">
+                                        <a href="javascript:void(0)" class="cetagory">Marketing</a>
+                                        <h6 class="post-title"><a href="blog-single.html">How did we get 1M+
+                                                visitors in 30 days without anything!</a></h6>
+                                        <span class="time"><i class="lni lni-calendar"></i> 30th Jan 2023</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Widget -->
+                        <!-- Start Single Widget -->
+                        <div class="widget categories-widget">
+                            <h5 class="widget-title">Categories</h5>
+                            <ul class="custom">
+                                <li>
+                                    <a href="javascript:void(0)">Web Design</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">Branding</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">Graphic Design</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">Marketing</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">Wireframing</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- End Single Widget -->
+                        <!-- Start Single Widget -->
+                        <div class="widget popular-tag-widget">
+                            <h5 class="widget-title">Popular Tags</h5>
+                            <div class="tags">
+                                <a href="javascript:void(0)">Popular</a>
+                                <a href="javascript:void(0)">Design</a>
+                                <a href="javascript:void(0)">UX</a>
+                                <a href="javascript:void(0)">Consult</a>
+                                <a href="javascript:void(0)">Ui</a>
+                                <a href="javascript:void(0)">Interview</a>
+                                <a href="javascript:void(0)">Develop</a>
+                                <a href="javascript:void(0)">Business</a>
+                            </div>
+                        </div>
+                        <!-- End Single Widget -->
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+    <!-- End Blog Grid -->
+
+    <!-- Start Clients Logo Area -->
+    <div class="client-logo">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-3 col-12 text-center">
+                    <div class="single-logo">
+                        <img src="assets/images/client-logo/graygrids-logo.svg" alt="#">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12 text-center">
+                    <div class="single-logo">
+                        <img src="assets/images/client-logo/lineicons-logo.svg" alt="#">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12 text-center">
+                    <div class="single-logo">
+                        <img src="assets/images/client-logo/pagebulb-logo.svg" alt="#">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12 text-center">
+                    <div class="single-logo">
+                        <img src="assets/images/client-logo/uideck-logo.svg" alt="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Clients Logo Area -->
+
+    
+{% endblock %}

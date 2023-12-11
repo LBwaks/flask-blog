@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <span class="title"><h1>{% block title %} The Posts Page {% endblock %}</h1></span>
+    <div class="content">
+        <h2>login</h2>
+    </div>
+     <form method="post" action="{{ url_for('auth.login') }}">
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        <label for="email">Email:</label>
+        {{ form.email(size=32, autofocus=true) }}
+        <br>
+        <label for="password">Password:</label>
+        {{ form.password(size=32) }}
+        <br>
+        <label for="remember_me">Remember Me:</label>
+        {{ form.remember_me() }}
+        <br>
+        {{ form.submit() }}
+    </form>
+{% endblock %}

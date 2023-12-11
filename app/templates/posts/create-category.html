@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row ">
+    <div class="col-md-7 mx-auto">
+
+  <form method="POST" action="{{url_for('posts.create_category')}}">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input name="title" required type="text" class="form-control" id="title" 
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description"  name="description" rows="3"></textarea>
+
+  </div>
+  
+  
+  <button type="submit" class="btn btn-primary">Create</button>
+</form>
+    </div>
+  </div>
+</div>
+  
+{% endblock %}
