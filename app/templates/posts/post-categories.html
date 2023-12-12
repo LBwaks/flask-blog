@@ -44,7 +44,7 @@
                                     <h4>
                                         <a href="{{url_for('posts.post_details', post_id=post.id)}}">{{post.title}}.</a>
                                     </h4>
-                                    <p>{{post.description}}</p>
+                                    <p>{{post.description|safe|truncate(250)}}</p>
                                     
                                 </div>
                             </div>

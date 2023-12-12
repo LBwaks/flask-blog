@@ -40,11 +40,11 @@
                                     </a>
                                 </div>
                                 <div class="blog-content">
-                                    <a class="category" href="javascript:void(0)">{{post.category.title}}</a>
+                                    <a class="category" href="{{url_for('posts.category_post',category_id=post.category_id)}}">{{post.category.title}}</a>
                                     <h4>
                                         <a href="{{url_for('posts.post_details', post_id=post.id)}}">{{post.title}}.</a>
                                     </h4>
-                                    <p>{{post.description}}</p>
+                                    <p>{{post.description|safe|truncate(250)}}</p>
                                     
                                 </div>
                             </div>

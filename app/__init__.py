@@ -5,6 +5,7 @@ from flask_login import LoginManager
 from app.models.user import User
 from app.models.post import Post
 from flask import render_template
+from flask_login import current_user, login_required
 
 
 def create_app(config_class=Config):
@@ -39,13 +40,14 @@ def create_app(config_class=Config):
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-    @app.route("/")
-    def index():
-        return "<h1>Testing the Flask Application Factory Pattern</h1>"
+    @app.route("/contact")
+    def contact():
+        return render_template("contact.html")
 
     @app.route("/dashboard")
+    @login_required
     def dashboard():
-        posts = Post.query.all()
+        posts = Post.query.filter_by(user=current_user).all()
         return render_template("posts/dashboard.html", posts=posts)
 
     return app

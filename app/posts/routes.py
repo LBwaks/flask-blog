@@ -23,21 +23,39 @@ from sqlalchemy import desc
 
 @bp.route("/")
 def index():
+    categories = Category.query.all()
+    l_posts = (
+        Post.query.order_by(desc(Post.created_at))
+        .filter_by(is_published=True)
+        .limit(3)
+        .all()
+    )
     posts = (
         Post.query.filter_by(is_published=True).order_by(desc(Post.created_at)).all()
     )
-    return render_template("posts/posts.html", posts=posts)
+    return render_template(
+        "posts/posts.html", posts=posts, l_posts=l_posts, categories=categories
+    )
 
 
 @bp.route("/categories/")
+@login_required
 def categories():
     categories = Category.query.all()
-    return render_template("posts/categories.html", categories=categories)
+    # categories = Category.query.all()
+    l_posts = (
+        Post.query.order_by(desc(Post.created_at))
+        .filter_by(is_published=True)
+        .limit(3)
+        .all()
+    )
+    return render_template("posts/categories.html", categories=categories,l_posts=l_posts)
 
 
 @bp.route(
     "/categories-post/<int:category_id>/",
 )
+@login_required
 def category_post(category_id):
     category = Category.query.get_or_404(category_id)
     posts = Post.query.filter_by(is_published=True, category=category).all()
@@ -50,7 +68,16 @@ def category_post(category_id):
 def user_post(user_id):
     user = User.query.get_or_404(user_id)
     posts = Post.query.filter_by(is_published=True, user=user).all()
-    return render_template("posts/post-users.html", posts=posts)
+    categories = Category.query.all()
+    l_posts = (
+        Post.query.order_by(desc(Post.created_at))
+        .filter_by(is_published=True)
+        .limit(3)
+        .all()
+    )
+    return render_template(
+        "posts/post-users.html", posts=posts, categories=categories, l_posts=l_posts
+    )
 
 
 @bp.route("/create-category", methods=("GET", "POST"))
@@ -104,7 +131,17 @@ def create():
 @bp.route("post-details/<int:post_id>/")
 def post_details(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template("posts/post-details.html", post=post)
+    categories = Category.query.all()
+    l_posts = (
+        Post.query.filter(Post.id != post_id)
+        .order_by(desc(Post.created_at))
+        .filter_by(is_published=True)
+        .limit(3)
+        .all()
+    )
+    return render_template(
+        "posts/post-details.html", post=post, categories=categories, l_posts=l_posts
+    )
 
 
 @bp.route("/update/<int:post_id>", methods=["GET", "POST"])
@@ -141,13 +178,14 @@ def update_post(post_id):
 
 
 @bp.route("/<int:post_id>/delete/", methods=["GET", "POST"])
+@login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     if request.method == "POST":
         db.session.delete(post)
         db.session.commit()
         return redirect(url_for("index"))
-    return render_template('dashboard')
+    return render_template("dashboard")
 
 
 @bp.route("/publish/<int:post_id>")
@@ -174,3 +212,10 @@ def unpublish_post(post_id):
     else:
         flash("You do not have permission to unpublish this post.", "danger")
     return redirect(url_for("dashboard"))
+
+
+@bp.route("/search-results")
+def search_results():
+    keyword = request.args.get("keyword", "")
+    posts = Post.search(keyword)
+    return render_template("posts/search.html", keyword=keyword, posts=posts)

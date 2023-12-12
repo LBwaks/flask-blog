@@ -28,3 +28,10 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"<Post {self.title}>"
+
+    @classmethod
+    def search(cls, keyword):
+        return cls.query.filter(
+            func.lower(cls.title).like(func.lower(f"%{keyword}%"))
+            | func.lower(cls.description).like(func.lower(f"%{keyword}%"))
+        ).all()
