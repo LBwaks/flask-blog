@@ -28,6 +28,10 @@
                                     <li class="nav-item ">
                                         <a href="{{url_for('posts.index')}}" aria-label="Toggle navigation">Blogs</a>
                                     </li>
+                                    <li class="nav-item ">
+                                        <a href="{{url_for('posts.create')}}" aria-label="Toggle navigation">Post Blogs</a>
+                                    </li>
+                                    
                                     
                                     <li class="nav-item">
                                         <a href="{{url_for('contact')}}" aria-label="Toggle navigation">Contact</a>
@@ -57,3 +61,12 @@
         </div> <!-- container -->
     </header>
     <!-- End Header Area -->
+
+
+    {% for message in get_flashed_messages() %}
+    
+    <div class="alert alert-primary" role="alert">
+  {{ message }}
+</div>
+
+  {% endfor %}

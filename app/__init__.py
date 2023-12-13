@@ -12,7 +12,7 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
     app.config["SECRET_KEY"] = "my_secret_key"
-    app.config["UPLOAD_FOLDER"] = "app/images"
+    app.config["UPLOAD_FOLDER"] = "app/static/uploads"
 
     # Initialize Flask extensions here
     db.init_app(app)

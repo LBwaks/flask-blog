@@ -14,6 +14,7 @@ from flask import (
     url_for,
     current_app,
 )
+from flask import send_from_directory
 from .forms import PostForm
 from flask_login import current_user, login_required
 import os
@@ -49,7 +50,9 @@ def categories():
         .limit(3)
         .all()
     )
-    return render_template("posts/categories.html", categories=categories,l_posts=l_posts)
+    return render_template(
+        "posts/categories.html", categories=categories, l_posts=l_posts
+    )
 
 
 @bp.route(
@@ -90,7 +93,7 @@ def create_category():
         )
         db.session.add(category)
         db.session.commit()
-        return redirect(url_for("create_category"))
+        return redirect(url_for("posts.create"))
     return render_template("posts/create-category.html")
 
 
@@ -219,3 +222,8 @@ def search_results():
     keyword = request.args.get("keyword", "")
     posts = Post.search(keyword)
     return render_template("posts/search.html", keyword=keyword, posts=posts)
+
+
+@bp.route("/images/<filename>")
+def get_image(filename):
+    return send_from_directory("app/images", filename)

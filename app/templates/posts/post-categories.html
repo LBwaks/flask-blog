@@ -36,7 +36,7 @@
                             <div class="single-blog-grid">
                                 <div class="blog-img">
                                     <a href="blog-single.html">
-                                        <img src="{{post.image}}" alt="#">
+                                        <img src="{{url_for('static', filename='uploads/' + post.image)}}" alt="#">
                                     </a>
                                 </div>
                                 <div class="blog-content">
@@ -52,25 +52,15 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <!-- Pagination -->
-                    <div class="pagination left">
-                        <ul class="pagination-list">
-                            <li><a href="javascript:void(0)">Prev</a></li>
-                            <li class="active"><a href="javascript:void(0)">2</a></li>
-                            <li><a href="javascript:void(0)">3</a></li>
-                            <li><a href="javascript:void(0)">4</a></li>
-                            <li><a href="javascript:void(0)">Next</a></li>
-                        </ul>
-                    </div>
-                    <!--/ End Pagination -->
+                  
                 </div>
-                <aside class="col-lg-4 col-md-12 col-12">
+                 <aside class="col-lg-4 col-md-12 col-12">
                     <div class="sidebar">
                         <!-- Start Single Widget -->
                         <div class="widget search-widget">
                             <h5 class="widget-title">Search This Site</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Search ...">
+                            <form action="{{ url_for('posts.search_results') }}" method="GET">
+                                <input type="text" name="keyword" placeholder="Search ...">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
                             </form>
                         </div>
@@ -79,30 +69,16 @@
                         <div class="widget popular-feeds">
                             <h5 class="widget-title">Popular Feeds</h5>
                             <div class="popular-feed-loop">
-                                <div class="single-popular-feed">
+                               {% for post in l_posts %}
+                               <div class="single-popular-feed">
                                     <div class="feed-desc">
-                                        <a href="javascript:void(0)" class="cetagory">Creative</a>
-                                        <h6 class="post-title"><a href="blog-single.html">Bringing Great Design
-                                                Ideas To Completion</a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 05th Nov 2023</span>
+                                        <a href="{{url_for('posts.category_post',category_id=post.category_id)}}" class="cetagory">{{post.category.title}}</a>
+                                        <h6 class="post-title"><a href="blog-single-sidebar.html">{{post.title}}</a></h6>
+                                        
                                     </div>
                                 </div>
-                                <div class="single-popular-feed">
-                                    <div class="feed-desc">
-                                        <a href="javascript:void(0)" class="cetagory">Jobs</a>
-                                        <h6 class="post-title"><a href="blog-single.html">Live Life Smart And
-                                                Focus On The Positive</a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 24th March 2023</span>
-                                    </div>
-                                </div>
-                                <div class="single-popular-feed">
-                                    <div class="feed-desc">
-                                        <a href="javascript:void(0)" class="cetagory">Marketing</a>
-                                        <h6 class="post-title"><a href="blog-single.html">How did we get 1M+
-                                                visitors in 30 days without anything!</a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 30th Jan 2023</span>
-                                    </div>
-                                </div>
+                               {% endfor %}
+                                
                             </div>
                         </div>
                         <!-- End Single Widget -->
@@ -110,39 +86,16 @@
                         <div class="widget categories-widget">
                             <h5 class="widget-title">Categories</h5>
                             <ul class="custom">
+                                {% for category in categories %}
                                 <li>
-                                    <a href="javascript:void(0)">Web Design</a>
+                                    <a href="{{url_for('posts.category_post',category_id=category.id)}}">{{category.title}}</a>
                                 </li>
-                                <li>
-                                    <a href="javascript:void(0)">Branding</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Graphic Design</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Marketing</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Wireframing</a>
-                                </li>
+                                {% endfor %}
+                                
                             </ul>
                         </div>
                         <!-- End Single Widget -->
-                        <!-- Start Single Widget -->
-                        <div class="widget popular-tag-widget">
-                            <h5 class="widget-title">Popular Tags</h5>
-                            <div class="tags">
-                                <a href="javascript:void(0)">Popular</a>
-                                <a href="javascript:void(0)">Design</a>
-                                <a href="javascript:void(0)">UX</a>
-                                <a href="javascript:void(0)">Consult</a>
-                                <a href="javascript:void(0)">Ui</a>
-                                <a href="javascript:void(0)">Interview</a>
-                                <a href="javascript:void(0)">Develop</a>
-                                <a href="javascript:void(0)">Business</a>
-                            </div>
-                        </div>
-                        <!-- End Single Widget -->
+                        
                     </div>
                 </aside>
             </div>

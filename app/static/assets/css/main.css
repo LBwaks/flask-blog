@@ -74,6 +74,7 @@ button:focus,
 .form-check-input:checked {
   background-color: #3080E3;
   border-color: #3080E3;
+  max-width: 5px;
 }
 
 select {
